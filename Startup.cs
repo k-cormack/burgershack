@@ -31,6 +31,7 @@ namespace burgershack
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IDbConnection>(x => CreateDBContext());
+            services.AddTransient<SidesRepository>();
             services.AddTransient<SmoothiesRepository>();
             services.AddTransient<BurgersRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -1,12 +1,12 @@
--- CREATE TABLE smoothies (
+-- CREATE TABLE sides (
 --     id int NOT NULL AUTO_INCREMENT,
 --     name VARCHAR (255) NOT NULL,
 --     description VARCHAR (255) NOT NULL,
---     price DECIMAL NOT NULL,
+--     price DECIMAL(10, 2) NOT NULL,
 --     PRIMARY KEY (id)
 -- );
 
--- INSERT INTO smoothies (name, description, price) VALUES ("The Plain Jane", "ice cream", 7.99);
+INSERT INTO sides (name, description, price) VALUES ("Fries", "1 full pound!", 9.99);
 
 -- SELECT * FROM smoothies;
 
