@@ -6,22 +6,26 @@ namespace burgershack.Models
 
     public class Burger
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
 
         [Required]
         [MinLength(6)]
         public string Name { get; set; }
 
+        [Required]
         [MaxLength(255)]
-
         public string Description { get; set; }
         
         public decimal Price { get; set; }
 
+        public Burger() {
+            
+        }
+
         public Burger(string name, string description, decimal price = 5.00m)
         {
-            Id = Guid.NewGuid();
+            
             Name = name;
             Description = description;
             if(price > 5){
