@@ -37,9 +37,9 @@ namespace burgershack.Controllers
             {
             burger = new Burger(burger.Name, burger.Description, burger.Price);
             return _repo.Create(burger);
-            return burger;
+            
             }
-        throw new Exception ("INVALID DATA");
+        throw new Exception ("INVALID BURGER");
         }
     }
 }

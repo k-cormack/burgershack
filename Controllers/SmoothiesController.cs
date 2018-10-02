@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using burgershack.Models;
+using burgershack.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace burgershack.Controllers
@@ -8,25 +10,27 @@ namespace burgershack.Controllers
     [ApiController]
     public class SmoothiesController : Controller
     {
-        List<Smoothie> smoothies;
-        public SmoothiesController()
+        SmoothiesRepository _repo;
+
+        public SmoothiesController(SmoothiesRepository repo)
         {
-            smoothies = new List<Smoothie>();
-            smoothies.Add(new Smoothie("The Plain Jane", "Burger on a Bun", 7.99m));
-            smoothies.Add(new Smoothie("The Monster", "Everything", 17.99m));
-            smoothies.Add(new Smoothie("The Nothing", "Lettuce", 1.99m));
-            
+            _repo = repo;
         }
         [HttpGet]
         public IEnumerable<Smoothie> Get()
         {
-            return smoothies;
+            return _repo.GetAll();
         }
         [HttpPost]
         public Smoothie Post([FromBody] Smoothie smoothie)
         {
-            smoothies.Add(smoothie);
-            return smoothie;
+            if (ModelState.IsValid)
+            {
+                smoothie = new Smoothie(smoothie.Name, smoothie.Description, smoothie.Price);
+                return _repo.Create(smoothie);
+
+            }
+            throw new Exception("INVALID SMOOTHIE");
         }
     }
 }

@@ -28,7 +28,7 @@ namespace burgershack.Repositories
 
         public Burger GetById(int id)
         {
-            return _db.Query<Burger>("SELECT * FROM bugers WHERE id = @id", new { id }).FirstOrDefault();
+            return _db.Query<Burger>("SELECT * FROM burgers WHERE id = @id", new { id }).FirstOrDefault();
         }
         //CREATE BURGER
         public Burger Create(Burger burger)
