@@ -18,7 +18,7 @@ namespace burgershack
 {
     public class Startup
     {
-        private readonly string  _connectionString = "";
+        private readonly string _connectionString = "";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,11 +30,24 @@ namespace burgershack
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsDevPolicy", builder =>
+                {
+                    builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+                });
+            });
+            services.AddMvc();
+
             services.AddTransient<IDbConnection>(x => CreateDBContext());
             services.AddTransient<SidesRepository>();
             services.AddTransient<SmoothiesRepository>();
             services.AddTransient<BurgersRepository>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         private IDbConnection CreateDBContext()
@@ -50,13 +63,15 @@ namespace burgershack
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("CorsDevPolicy");
             }
             else
             {
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            // app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
