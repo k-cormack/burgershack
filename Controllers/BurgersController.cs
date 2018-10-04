@@ -3,6 +3,7 @@ using System;
 using burgershack.Models;
 using Microsoft.AspNetCore.Mvc;
 using burgershack.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace burgershack.Controllers
 {
@@ -30,6 +31,12 @@ namespace burgershack.Controllers
         {
             return _repo.GetAll();
         }
+        // [HttpGet("id")]
+        // public IEnumerable<Burger> Get(string id)
+        // {
+        //     return _repo.GetAll();
+        // }
+        [Authorize]
         [HttpPost]
         public Burger Post([FromBody] Burger burger)
         {
@@ -40,6 +47,14 @@ namespace burgershack.Controllers
             
             }
         throw new Exception ("INVALID BURGER");
+        }
+
+        [HttpDelete]
+        public string Delete([FromBody] Burger burger)
+        {
+            Burger deletedBurger = _repo.Delete(burger);
+            //_backupRepo.Add(deletedBurger);
+            return "deleted";
         }
     }
 }

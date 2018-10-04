@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace burgershack.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SmoothiesController : Controller
