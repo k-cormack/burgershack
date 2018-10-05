@@ -60,6 +60,16 @@ namespace burgershack.Repositories
              _db.Execute("DELETE FROM burgers WHERE id = @Id", burger);
              return burger;
          }
+
+        public IEnumerable<Burger> GetBurgersByUserId(string id)
+        {
+            return _db.Query<Burger>(@"
+            SELECT * FROM userburgers
+            JOIN burgers ON burgers.id = userburgers.burgerId
+            WHERE userId = @id
+            ", new {id});
+        }
+
          public int Delete(int id)
          {
              return _db.Execute("DELETE FROM burgers WHERE id = @id", new { id });

@@ -6,7 +6,7 @@
 --     PRIMARY KEY (id)
 -- );
 
-INSERT INTO sides (name, description, price) VALUES ("Fries", "1 full pound!", 9.99);
+-- INSERT INTO sides (name, description, price) VALUES ("Fries", "1 full pound!", 9.99);
 
 -- SELECT * FROM smoothies;
 
@@ -16,5 +16,33 @@ INSERT INTO sides (name, description, price) VALUES ("Fries", "1 full pound!", 9
 
 -- DELETE FROM smoothies WHERE id = 1;
 
+-- User TABLE CREATION
+CREATE TABLE users (
+id VARCHAR(255) NOT NULL,
+username VARCHAR(20) NOT NULL,
+email VARCHAR(50) NOT NULL,
+hash VARCHAR(255) NOT NULL,
+PRIMARY KEY(id),
+UNIQUE KEY email (email)
+);
+
+--FAVORITES TABLE
+
+CREATE TABLE userburgers(
+    id int NOT NULL_AUTOINCREMENT,
+    burgerId in NOT NULL,
+    userId VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (id),
+    INDEX (userId),
+
+    FOREIGN KEY (userId)
+    REFERENCES users(id)
+    ON DELETE CASCADE, 
+
+    FOREIGN KEY (burgerId)
+    REFERENCES burgers(id)
+    ON DELETE CASCADE
+)
 
 
